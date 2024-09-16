@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { Exo_2 } from 'next/font/google'
-import "./globals.scss";
+import { Exo_2 } from "next/font/google";
 import NavigationBar from "@/components/navigation-bar";
+import FooterBar from "@/components/footer-bar";
+import "./globals.scss";
 
 const exo2 = Exo_2({
   subsets: ['latin'],
@@ -19,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-bs-theme="light">
       <body className={exo2.className}>
         <div className="app">
           <header>
@@ -29,7 +30,7 @@ export default function RootLayout({
             {children}
           </main>
           <footer>
-            Footer
+            <FooterBar />
           </footer>
         </div>
       </body>
