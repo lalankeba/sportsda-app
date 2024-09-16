@@ -1,0 +1,16 @@
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+
+$custom-colors: (
+  'altlight': #f2ebfa,
+);
+
+$theme-colors: map-merge($theme-colors, $custom-colors);
+
+@import 'bootstrap/scss/bootstrap';
+
+
+html, body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
