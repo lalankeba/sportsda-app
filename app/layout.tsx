@@ -10,7 +10,7 @@ const exo2 = Exo_2({
 })
 
 export const metadata: Metadata = {
-  title: "Sports Data Analyser",
+  title: "Sports Analyzer",
   description: "Stores sportsmen data and helps statisticians to optimize talents",
 };
 

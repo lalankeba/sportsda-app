@@ -16,7 +16,7 @@ const NavigationBar: React.FC = () => {
           <Navbar.Brand as={Link} href="/">
             <Image alt='' src={logoImage} width="30" height="30" className="d-inline-block align-top" />
             {' '}
-            Sports Data Analyser
+            Sports Analyzer
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">

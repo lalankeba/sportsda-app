@@ -1,16 +1,21 @@
 import React from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import RegistrationForm from '@/components/registration-form';
 
-const RegisterPage = () => {
+const RegisterPage = async () => {
+  let faculties = [];
+  let error = null;
+
+  const facultiesUrl = `${process.env.BACKEND_BASE_URL}${process.env.BACKEND_FACULTIES_PATH}`;
+  try {
+    const response = await fetch(`${facultiesUrl}`);
+    faculties = await response.json();
+  } catch (err) {
+    error = `Unable to load faculties. Please try again later.`;
+  }
+
   return (
     <>
-      <Container>
-        <Row>
-          <Col>
-            <h1>Register</h1>
-          </Col>
-        </Row>
-      </Container>
+      <RegistrationForm faculties={faculties} error={error} />
     </>
   )
 }
