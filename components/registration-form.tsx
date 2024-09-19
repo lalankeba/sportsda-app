@@ -105,7 +105,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ faculties, error })
         )}
         {!error && (
         <Row className='justify-content-center'>
-          <Col xs='12' md={8} lg={6}>
+          <Col xs={12} md={8} lg={6}>
             <Card className='m-3 shadow'>
               <Card.Body>
                 <Card.Title className="h1">Register</Card.Title>
@@ -168,10 +168,10 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ faculties, error })
                       <Button type="submit" variant="primary" disabled={isSubmitting}>
                         {isSubmitting ? (
                           <>
-                            <FontAwesomeIcon icon={faCircleNotch} spin /> {`Submitting...`}
+                            <FontAwesomeIcon icon={faCircleNotch} spin /> {`Creating account...`}
                           </>
                         ) : (
-                          `Submit`
+                          `Register`
                         )}
                       </Button>
                     </Form>
