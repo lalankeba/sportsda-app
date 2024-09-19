@@ -1,16 +1,20 @@
 "use client";
 import React from 'react';
-import { Col, Container, Row } from 'react-bootstrap'
+import { Col, Container, Row } from 'react-bootstrap';
 
 const FooterBar = () => {
   return (
-    <Container>
-      <Row>
-        <Col>
-          Footer bar
-        </Col>
-      </Row>
-    </Container>
+    <>
+      <Container>
+        <Row>
+          <Col>
+            <div className="d-flex flex-column justify-content-center align-items-center">
+              <div>Copyright 2024 Sports Analyzer</div>
+            </div>
+          </Col>
+        </Row>
+      </Container>
+    </>
   )
 }
 

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Exo_2 } from "next/font/google";
 import NavigationBar from "@/components/navigation-bar";
 import FooterBar from "@/components/footer-bar";
+import { MemberProvider } from "@/contexts/member-provider";
 import "./globals.scss";
 
 const exo2 = Exo_2({
@@ -41,17 +42,19 @@ export default function RootLayout({
   return (
     <html lang="en" data-bs-theme="light">
       <body className={exo2.className}>
-        <div className="app">
-          <header>
-            <NavigationBar />
-          </header>
-          <main>
-            {children}
-          </main>
-          <footer>
-            <FooterBar />
-          </footer>
-        </div>
+        <MemberProvider>
+          <div className="app">
+            <header>
+              <NavigationBar />
+            </header>
+            <main>
+              {children}
+            </main>
+            <footer>
+              <FooterBar />
+            </footer>
+          </div>
+        </MemberProvider>
       </body>
     </html>
   );

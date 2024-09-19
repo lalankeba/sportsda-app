@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Gender from '@/enums/gender';
 import Faculty from '@/interfaces/i-faculty';
@@ -9,6 +9,7 @@ import * as Yup from 'yup';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 import Link from 'next/link';
+import { useMember } from '@/hooks/use-member';
 
 interface RegistrationFormProps {
   faculties: Faculty[],
@@ -29,6 +30,13 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ faculties, error })
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [alertContent, setAlertContent] = useState<React.ReactNode | null>(null);
   const [alertVariant, setAlertVariant] = useState<string>('light');
+  const { member } = useMember();
+
+  useEffect(() => {
+    if (member) {
+      router.replace('/member');
+    }
+  }, [member, router]);
 
   const registrationValidationSchema = Yup.object({
     firstName: Yup.string().trim()
@@ -70,7 +78,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ faculties, error })
 
       if (response.ok) {
         resetForm();
-        displayAlert(<>Registration successful. You will be redirected to <Link href="/login">login</Link> page shortly.</>, 'success');
+        displayAlert(<>Registration successful. You will be redirected to <Alert.Link as={Link} href="/login">login</Alert.Link> page shortly.</>, 'success');
         setTimeout(() => {
           router.replace('/login');
         }, 3000);
@@ -106,79 +114,81 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ faculties, error })
         {!error && (
         <Row className='justify-content-center'>
           <Col xs={12} md={8} lg={6}>
-            <Card className='m-3 shadow'>
-              <Card.Body>
-                <Card.Title className="h1">Register</Card.Title>
-                {showAlert && (
-                  <Alert variant={alertVariant}>
-                    {alertContent}
-                  </Alert>
-                )}
-                <Formik
-                  initialValues={{ firstName: '', lastName: '', email: '', password: '', gender: Gender.Male, facultyId: faculties[0].id }}
-                  validationSchema={registrationValidationSchema}
-                  onSubmit={handleSubmit}
-                >
-                  {({ isSubmitting }) => (
-                    <Form noValidate className="my-4">
-                      <fieldset disabled={isSubmitting}>
-                        <BootstrapForm.Group controlId="formFirstName" className="mb-3">
-                          <BootstrapForm.Label>{`First Name`}</BootstrapForm.Label>
-                          <Field name="firstName" className="form-control" type="text" placeholder={`Enter first name`} />
-                          <ErrorMessage name="firstName" component="p" className="text-danger" />
-                        </BootstrapForm.Group>
-                        <BootstrapForm.Group controlId="formLastName" className="mb-3">
-                          <BootstrapForm.Label>{`Last Name`}</BootstrapForm.Label>
-                          <Field name="lastName" className="form-control" type="text" placeholder={`Enter last name`} />
-                          <ErrorMessage name="lastName" component="p" className="text-danger" />
-                        </BootstrapForm.Group>
-                        <BootstrapForm.Group controlId="formEmail" className="mb-3">
-                          <BootstrapForm.Label>{`Email`}</BootstrapForm.Label>
-                          <Field name="email" className="form-control" type="email" placeholder={`Enter email`} />
-                          <ErrorMessage name="email" component="p" className="text-danger" />
-                        </BootstrapForm.Group>
-                        <BootstrapForm.Group controlId="formPassword" className="mb-3">
-                          <BootstrapForm.Label>{`Password`}</BootstrapForm.Label>
-                          <Field name="password" className="form-control" type="password" placeholder={`Enter password`} />
-                          <ErrorMessage name="password" component="p" className="text-danger" />
-                        </BootstrapForm.Group>
-                        <BootstrapForm.Group controlId="formGender" className="mb-3">
-                          <BootstrapForm.Label>{`Gender`}</BootstrapForm.Label>
-                          <Field as={BootstrapForm.Select} name="gender">
-                            {Object.values(Gender).map((gender) => (
-                              <option key={gender} value={gender}>
-                                {gender}
-                              </option>
-                            ))}
-                          </Field>
-                          <ErrorMessage name="gender" component="p" className="text-danger" />
-                        </BootstrapForm.Group>
-                        <BootstrapForm.Group controlId="formFacultyId" className="mb-3">
-                          <BootstrapForm.Label>{`Faculty`}</BootstrapForm.Label>
-                          <Field as={BootstrapForm.Select} name="facultyId">
-                            {faculties.map((faculty) => (
-                              <option key={faculty.id} value={faculty.id}>
-                                {faculty.name}
-                              </option>
-                            ))}
-                          </Field>
-                          <ErrorMessage name="facultyId" component="p" className="text-danger" />
-                        </BootstrapForm.Group>
-                      </fieldset>
-                      <Button type="submit" variant="primary" disabled={isSubmitting}>
-                        {isSubmitting ? (
-                          <>
-                            <FontAwesomeIcon icon={faCircleNotch} spin /> {`Creating account...`}
-                          </>
-                        ) : (
-                          `Register`
-                        )}
-                      </Button>
-                    </Form>
+            <div className="d-flex flex-column justify-content-center align-items-center" style={{ minHeight: '84svh'}}>
+              <Card className='m-3 shadow w-100'>
+                <Card.Body>
+                  <Card.Title className="h1">Register</Card.Title>
+                  {showAlert && (
+                    <Alert variant={alertVariant}>
+                      {alertContent}
+                    </Alert>
                   )}
-                </Formik>
-              </Card.Body>
-            </Card>
+                  <Formik
+                    initialValues={{ firstName: '', lastName: '', email: '', password: '', gender: Gender.Male, facultyId: faculties[0].id }}
+                    validationSchema={registrationValidationSchema}
+                    onSubmit={handleSubmit}
+                  >
+                    {({ isSubmitting }) => (
+                      <Form noValidate className="my-4">
+                        <fieldset disabled={isSubmitting}>
+                          <BootstrapForm.Group controlId="formFirstName" className="mb-3">
+                            <BootstrapForm.Label>{`First Name`}</BootstrapForm.Label>
+                            <Field name="firstName" className="form-control" type="text" placeholder={`Enter first name`} />
+                            <ErrorMessage name="firstName" component="p" className="text-danger" />
+                          </BootstrapForm.Group>
+                          <BootstrapForm.Group controlId="formLastName" className="mb-3">
+                            <BootstrapForm.Label>{`Last Name`}</BootstrapForm.Label>
+                            <Field name="lastName" className="form-control" type="text" placeholder={`Enter last name`} />
+                            <ErrorMessage name="lastName" component="p" className="text-danger" />
+                          </BootstrapForm.Group>
+                          <BootstrapForm.Group controlId="formEmail" className="mb-3">
+                            <BootstrapForm.Label>{`Email`}</BootstrapForm.Label>
+                            <Field name="email" className="form-control" type="email" placeholder={`Enter email`} />
+                            <ErrorMessage name="email" component="p" className="text-danger" />
+                          </BootstrapForm.Group>
+                          <BootstrapForm.Group controlId="formPassword" className="mb-3">
+                            <BootstrapForm.Label>{`Password`}</BootstrapForm.Label>
+                            <Field name="password" className="form-control" type="password" placeholder={`Enter password`} />
+                            <ErrorMessage name="password" component="p" className="text-danger" />
+                          </BootstrapForm.Group>
+                          <BootstrapForm.Group controlId="formGender" className="mb-3">
+                            <BootstrapForm.Label>{`Gender`}</BootstrapForm.Label>
+                            <Field as={BootstrapForm.Select} name="gender">
+                              {Object.values(Gender).map((gender) => (
+                                <option key={gender} value={gender}>
+                                  {gender}
+                                </option>
+                              ))}
+                            </Field>
+                            <ErrorMessage name="gender" component="p" className="text-danger" />
+                          </BootstrapForm.Group>
+                          <BootstrapForm.Group controlId="formFacultyId" className="mb-3">
+                            <BootstrapForm.Label>{`Faculty`}</BootstrapForm.Label>
+                            <Field as={BootstrapForm.Select} name="facultyId">
+                              {faculties.map((faculty) => (
+                                <option key={faculty.id} value={faculty.id}>
+                                  {faculty.name}
+                                </option>
+                              ))}
+                            </Field>
+                            <ErrorMessage name="facultyId" component="p" className="text-danger" />
+                          </BootstrapForm.Group>
+                        </fieldset>
+                        <Button type="submit" variant="primary" disabled={isSubmitting}>
+                          {isSubmitting ? (
+                            <>
+                              <FontAwesomeIcon icon={faCircleNotch} spin /> {`Creating account...`}
+                            </>
+                          ) : (
+                            `Register`
+                          )}
+                        </Button>
+                      </Form>
+                    )}
+                  </Formik>
+                </Card.Body>
+              </Card>
+            </div>
           </Col>
         </Row>
         )}

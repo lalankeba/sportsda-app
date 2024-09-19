@@ -25,9 +25,11 @@ const NotFound = () => {
     <Container>
       <Row>
         <Col>
+        <div className="d-flex flex-column justify-content-center align-items-center" style={{ minHeight: 'calc(100svh - 3.5rem - 3.5rem)' }}>
           <h1>Resource Not Found</h1>
           <h3>404</h3>
           <p>Go back to <Link href="/">homepage</Link></p>
+        </div>
         </Col>
       </Row>
     </Container>
