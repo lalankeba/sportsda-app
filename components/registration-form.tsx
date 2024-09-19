@@ -8,6 +8,7 @@ import { Formik, Field, Form, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
+import Link from 'next/link';
 
 interface RegistrationFormProps {
   faculties: Faculty[],
@@ -26,7 +27,7 @@ interface RegistrationFormValues {
 const RegistrationForm: React.FC<RegistrationFormProps> = ({ faculties, error }) => {
   const router = useRouter();
   const [showAlert, setShowAlert] = useState<boolean>(false);
-  const [alertMessage, setAlertMessage] = useState<string>('');
+  const [alertContent, setAlertContent] = useState<React.ReactNode | null>(null);
   const [alertVariant, setAlertVariant] = useState<string>('light');
 
   const registrationValidationSchema = Yup.object({
@@ -69,7 +70,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ faculties, error })
 
       if (response.ok) {
         resetForm();
-        displayAlert(`Registration successful. You will be redirected to login page shortly.`, 'success');
+        displayAlert(<>Registration successful. You will be redirected to <Link href="/login">login</Link> page shortly.</>, 'success');
         setTimeout(() => {
           router.replace('/login');
         }, 3000);
@@ -84,8 +85,8 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ faculties, error })
     }
   };
 
-  const displayAlert = (message: string, variant: string) => {
-    setAlertMessage(message);
+  const displayAlert = (content: React.ReactNode, variant: string) => {
+    setAlertContent(content);
     setAlertVariant(variant);
     setShowAlert(true);
   }
@@ -110,7 +111,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ faculties, error })
                 <Card.Title className="h1">Register</Card.Title>
                 {showAlert && (
                   <Alert variant={alertVariant}>
-                    {alertMessage}
+                    {alertContent}
                   </Alert>
                 )}
                 <Formik

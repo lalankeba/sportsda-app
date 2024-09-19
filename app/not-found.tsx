@@ -1,6 +1,24 @@
+import { Metadata } from 'next';
 import Link from 'next/link';
 import React from 'react'
 import { Col, Container, Row } from 'react-bootstrap';
+
+export const metadata: Metadata = {
+  title: "Not Found",
+  description: "Resource not found on this server",
+  keywords: ["404", "not found"],
+  openGraph: {
+    title: "Not Found",
+    description: "Resource not found on this server",
+    type: "website",
+    images: [
+      {
+        url: "/images/back1.jpeg",
+        alt: "Sports Analyzer"
+      }
+    ]
+  }
+};
 
 const NotFound = () => {
   return (

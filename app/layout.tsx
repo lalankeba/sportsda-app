@@ -10,8 +10,27 @@ const exo2 = Exo_2({
 })
 
 export const metadata: Metadata = {
-  title: "Sports Analyzer",
+  title: {
+    template: `%s - Sports Analyzer`,
+    default: `Sports Analyzer`,
+  },
   description: "Stores sportsmen data and helps statisticians to optimize talents",
+  keywords: ["sport", "sports", "analyze", "analyse", "optimize"],
+  authors: { name: "Sports Analyzer team"},
+  openGraph: {
+    title: {
+      template: `%s - Sports Analyzer`,
+      default: `Sports Analyzer`,
+    },
+    description: "Stores sportsmen data and helps statisticians to optimize talents",
+    type: "website",
+    images: [
+      {
+        url: "/images/back1.jpeg",
+        alt: "Sports Analyzer"
+      }
+    ]
+  }
 };
 
 export default function RootLayout({

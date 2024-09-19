@@ -1,4 +1,26 @@
+import { Metadata } from "next";
 import { Button, Col, Container, Row } from "react-bootstrap";
+
+export const metadata: Metadata = {
+  title: {
+    absolute: "Sports Analyzer"
+  },
+  description: "Stores sportsmen data and helps statisticians to optimize talents",
+  keywords: ["sport", "sports", "analyze", "analyse", "optimize"],
+  openGraph: {
+    title: {
+      absolute: "Sports Analyzer"
+    },
+    description: "Stores sportsmen data and helps statisticians to optimize talents",
+    type: "website",
+    images: [
+      {
+        url: "/images/back1.jpeg",
+        alt: "Sports Analyzer"
+      }
+    ]
+  }
+};
 
 export default function Home() {
 

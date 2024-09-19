@@ -1,5 +1,23 @@
 import React from 'react';
+import { Metadata } from 'next';
 import RegistrationForm from '@/components/registration-form';
+
+export const metadata: Metadata = {
+  title: "Register",
+  description: "Register for sports analyzer",
+  keywords: ["register", "sport", "analyze", "analyse", "optimize"],
+  openGraph: {
+    title: "Register",
+    description: "Stores sportsmen data and helps statisticians to optimize talents",
+    type: "website",
+    images: [
+      {
+        url: "/images/back1.jpeg",
+        alt: "Sports Analyzer"
+      }
+    ]
+  }
+};
 
 const RegisterPage = async () => {
   let faculties = [];
