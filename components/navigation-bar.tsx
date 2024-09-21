@@ -1,16 +1,23 @@
 "use client";
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import logoImage from "@/public/images/logo.png";
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useMember } from '@/hooks/use-member';
+import { isTokenExpired } from '@/utils/jwt-util';
 
 const NavigationBar: React.FC = () => {
   const pathname = usePathname();
   const router = useRouter();
-  const { member, logout } = useMember();
+  const { member, token, logout } = useMember();
+
+  useEffect(() => {
+    if (isTokenExpired(token)) {
+      logout();
+    }
+  });
 
   const handleLogout = () => {
     logout();
@@ -20,7 +27,7 @@ const NavigationBar: React.FC = () => {
   return (
     <>
       <Navbar collapseOnSelect fixed="top" expand="lg" className="bg-body-tertiary">
-        <Container>
+        <Container fluid="md">
           <Navbar.Brand as={Link} href="/">
             <Image alt='' src={logoImage} width="30" height="30" className="d-inline-block align-top" />
             {' '}
@@ -49,10 +56,10 @@ const NavigationBar: React.FC = () => {
             {member && (
               <Nav>
                 <NavDropdown title={`${member.firstName} ${member.lastName}`} id="collapsible-nav-dropdown">
-                  <NavDropdown.Item onClick={() => router.push('/member')}>
+                  <NavDropdown.Item href="#" onClick={() => router.push('/member')}>
                     Dashbaord
                   </NavDropdown.Item>
-                  <NavDropdown.Item onClick={handleLogout}>
+                  <NavDropdown.Item href="#" onClick={handleLogout}>
                     Logout
                   </NavDropdown.Item>
                 </NavDropdown>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 import RegistrationForm from '@/components/registration-form';
+import { Alert, Col, Container, Row } from 'react-bootstrap';
 
 export const metadata: Metadata = {
   title: "Register",
@@ -33,7 +34,24 @@ const RegisterPage = async () => {
 
   return (
     <>
-      <RegistrationForm faculties={faculties} error={error} />
+      <Container fluid="sm">
+        {error && (
+          <Row className='justify-content-center'>
+            <Col xs='12' md={8} lg={6}>
+              <Alert variant="danger">
+                {error}
+              </Alert>
+            </Col>
+          </Row>
+        )}
+        {!error && (
+          <Row className='justify-content-center'>
+            <Col xs={12} md={8} lg={6}>
+              <RegistrationForm faculties={faculties} />
+            </Col>
+          </Row>
+        )}
+      </Container>
     </>
   )
 }

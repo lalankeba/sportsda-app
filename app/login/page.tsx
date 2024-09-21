@@ -1,6 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 import LoginForm from '@/components/login-form';
+import { Col, Container, Row } from 'react-bootstrap';
 
 export const metadata: Metadata = {
   title: "Login",
@@ -22,7 +23,13 @@ export const metadata: Metadata = {
 const LoginPage = () => {
   return (
     <>
-      <LoginForm />
+      <Container fluid="sm">
+        <Row className='justify-content-center'>
+          <Col xs={12} md={8} lg={6}>
+            <LoginForm />
+          </Col>
+        </Row>
+      </Container>
     </>
   )
 }

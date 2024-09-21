@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Formik, Field, Form, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-import { Button, Card, Col, Container, Form as BootstrapForm, Row, Alert } from 'react-bootstrap';
+import { Button, Card, Form as BootstrapForm, Alert } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 import { useMember } from '@/hooks/use-member';
@@ -83,55 +83,49 @@ const LoginForm: React.FC = () => {
 
   return (
     <>
-      <Container>
-        <Row className='justify-content-center'>
-          <Col xs={12} md={8} lg={6}>
-            <div className="d-flex flex-column justify-content-center align-items-center" style={{ minHeight: 'calc(100svh - 3.5rem - 3.5rem)' }}>
-              <Card className='m-3 shadow w-100'>
-                <Card.Body>
-                  <Card.Title className="h1">Login</Card.Title>
-                  {showAlert && (
-                    <Alert variant={alertVariant}>
-                      {alertContent}
-                    </Alert>
-                  )}
-                  <Formik
-                    initialValues={{ email: '', password: '' }}
-                    validationSchema={loginValidationSchema}
-                    onSubmit={handleSubmit}
-                  >
-                    {({ isSubmitting }) => (
-                      <Form noValidate className="my-4">
-                        <fieldset disabled={isSubmitting}>
-                          <BootstrapForm.Group controlId="formEmail" className="mb-3">
-                            <BootstrapForm.Label>{`Email`}</BootstrapForm.Label>
-                            <Field name="email" className="form-control" type="email" placeholder={`Enter email`} />
-                            <ErrorMessage name="email" component="p" className="text-danger" />
-                          </BootstrapForm.Group>
-                          <BootstrapForm.Group controlId="formPassword" className="mb-3">
-                            <BootstrapForm.Label>{`Password`}</BootstrapForm.Label>
-                            <Field name="password" className="form-control" type="password" placeholder={`Enter password`} />
-                            <ErrorMessage name="password" component="p" className="text-danger" />
-                          </BootstrapForm.Group>
-                        </fieldset>
-                        <Button type="submit" variant="primary" disabled={isSubmitting}>
-                          {isSubmitting ? (
-                            <>
-                              <FontAwesomeIcon icon={faCircleNotch} spin /> {`Processing...`}
-                            </>
-                          ) : (
-                            `Log in`
-                          )}
-                        </Button>
-                      </Form>
+      <div className="d-flex flex-column justify-content-center align-items-center" style={{ minHeight: 'calc(100svh - 3.5rem - 3.5rem)' }}>
+        <Card className='m-3 shadow w-100'>
+          <Card.Body>
+            <Card.Title className="h1">Login</Card.Title>
+            {showAlert && (
+              <Alert variant={alertVariant}>
+                {alertContent}
+              </Alert>
+            )}
+            <Formik
+              initialValues={{ email: '', password: '' }}
+              validationSchema={loginValidationSchema}
+              onSubmit={handleSubmit}
+            >
+              {({ isSubmitting }) => (
+                <Form noValidate className="my-4">
+                  <fieldset disabled={isSubmitting}>
+                    <BootstrapForm.Group controlId="formEmail" className="mb-3">
+                      <BootstrapForm.Label>{`Email`}</BootstrapForm.Label>
+                      <Field name="email" className="form-control" type="email" placeholder={`Enter email`} />
+                      <ErrorMessage name="email" component="p" className="text-danger" />
+                    </BootstrapForm.Group>
+                    <BootstrapForm.Group controlId="formPassword" className="mb-3">
+                      <BootstrapForm.Label>{`Password`}</BootstrapForm.Label>
+                      <Field name="password" className="form-control" type="password" placeholder={`Enter password`} />
+                      <ErrorMessage name="password" component="p" className="text-danger" />
+                    </BootstrapForm.Group>
+                  </fieldset>
+                  <Button type="submit" variant="primary" disabled={isSubmitting}>
+                    {isSubmitting ? (
+                      <>
+                        <FontAwesomeIcon icon={faCircleNotch} spin /> {`Processing...`}
+                      </>
+                    ) : (
+                      `Log in`
                     )}
-                  </Formik>
-                </Card.Body>
-              </Card>
-            </div>
-          </Col>
-        </Row>
-      </Container>
+                  </Button>
+                </Form>
+              )}
+            </Formik>
+          </Card.Body>
+        </Card>
+      </div>
     </>
   )
 }

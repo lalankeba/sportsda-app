@@ -26,12 +26,11 @@ export default function Home() {
 
   return (
     <>
-      <Container>
+      <Container fluid="md">
         <Row>
           <Col>
             <div>
-              <h1>Welcome to homepage</h1>
-              <Button>Press Me</Button>
+              <h1>Welcome to Sports Analyzer</h1>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor fermentum placerat. Phasellus vestibulum ut sem eu ultricies. Sed eget dolor nibh. Nam varius placerat posuere. Proin blandit augue magna, nec varius neque sodales id. Sed vel sapien porta, vulputate magna ut, vulputate lacus. Vestibulum sollicitudin augue id tellus vestibulum porta. Nulla facilisi.</p>
               <p>Maecenas sed dui eu nulla sodales cursus eget sed neque. Mauris tristique, orci eu aliquam ultrices, metus tellus interdum lacus, vitae sollicitudin libero ante quis urna. Curabitur a lectus viverra, condimentum ante vitae, condimentum ligula. Quisque sed turpis vitae libero vehicula pulvinar. Integer suscipit tincidunt velit et interdum. Duis imperdiet convallis mi sed sagittis. Suspendisse felis nunc, placerat nec tellus id, posuere dapibus ex. Nunc dapibus sollicitudin ipsum, vitae pulvinar enim luctus et. Donec vitae arcu vel orci facilisis aliquam. Aliquam erat volutpat. Vestibulum metus ipsum, ornare ac orci id, accumsan varius arcu. Suspendisse potenti. Etiam posuere, elit ut auctor tempor, nisi risus aliquam ipsum, eu hendrerit metus sem sed sem.</p>
               <p>Nam a iaculis orci, vitae fermentum erat. Donec leo mauris, sodales eu tortor eu, imperdiet varius mi. Sed at pharetra dolor, nec fringilla justo. Donec facilisis neque ac luctus consectetur. Integer augue enim, iaculis id rhoncus eu, ultricies scelerisque libero. Phasellus egestas orci sed purus efficitur ultricies elementum eu magna. Nulla sodales, lorem ac fringilla aliquam, est nunc auctor diam, nec ultricies felis urna non libero.</p>
