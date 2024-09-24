@@ -1,14 +1,13 @@
 import React from 'react';
 import { Metadata } from 'next';
-import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: "Member Dashboard",
-  description: "Dashboard of sports analyzer",
+  title: "Member",
+  description: "View member details",
   keywords: ["dashboard", "sport", "analyze", "analyse", "optimize"],
   openGraph: {
-    title: "Member Dashboard",
-    description: "Dashboard of sports analyzer",
+    title: "Member",
+    description: "View member details",
     type: "website",
     images: [
       {
@@ -20,12 +19,11 @@ export const metadata: Metadata = {
 };
 
 const MemberPage = () => {
+
   return (
     <>
       <div>
-        <h1>Member Dashboard</h1>
-        <p>redirect to <Link href="/login">login</Link> page</p>
-        <p>redirect to <Link href="/member">member</Link> page</p>
+        <h1>Member</h1>
       </div>
     </>
   )

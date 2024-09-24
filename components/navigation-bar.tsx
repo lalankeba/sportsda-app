@@ -1,17 +1,21 @@
 "use client";
 import React, { useEffect } from 'react';
 import Image from 'next/image';
-import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Button, Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import logoImage from "@/public/images/logo.png";
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useMember } from '@/hooks/use-member';
 import { isTokenExpired } from '@/utils/jwt-util';
+import { useSideBar } from '@/hooks/use-side-bar';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 
 const NavigationBar: React.FC = () => {
   const pathname = usePathname();
   const router = useRouter();
   const { member, token, logout } = useMember();
+  const { handleShow } = useSideBar();
 
   useEffect(() => {
     if (isTokenExpired(token)) {
@@ -28,6 +32,11 @@ const NavigationBar: React.FC = () => {
     <>
       <Navbar collapseOnSelect fixed="top" expand="lg" className="bg-body-tertiary">
         <Container fluid="md">
+          {member && pathname.startsWith('/dashboard') && (
+            <Button variant="outline" className="d-md-none" onClick={handleShow}>
+              <FontAwesomeIcon icon={faEllipsisV} />
+            </Button>
+          )}
           <Navbar.Brand as={Link} href="/">
             <Image alt='' src={logoImage} width="30" height="30" className="d-inline-block align-top" />
             {' '}
@@ -56,7 +65,7 @@ const NavigationBar: React.FC = () => {
             {member && (
               <Nav>
                 <NavDropdown title={`${member.firstName} ${member.lastName}`} id="collapsible-nav-dropdown">
-                  <NavDropdown.Item href="#" onClick={() => router.push('/member')}>
+                  <NavDropdown.Item href="#" onClick={() => router.push('/dashboard')}>
                     Dashbaord
                   </NavDropdown.Item>
                   <NavDropdown.Item href="#" onClick={handleLogout}>

@@ -3,6 +3,7 @@ import { Exo_2 } from "next/font/google";
 import NavigationBar from "@/components/navigation-bar";
 import FooterBar from "@/components/footer-bar";
 import { MemberProvider } from "@/contexts/member-provider";
+import { SideBarProvider } from "@/contexts/side-bar-provider";
 import "./globals.scss";
 
 const exo2 = Exo_2({
@@ -43,17 +44,19 @@ export default function RootLayout({
     <html lang="en" data-bs-theme="light">
       <body className={exo2.className}>
         <MemberProvider>
-          <div className="app">
-            <header>
-              <NavigationBar />
-            </header>
-            <main>
-              {children}
-            </main>
-            <footer>
-              <FooterBar />
-            </footer>
-          </div>
+          <SideBarProvider>
+            <div className="app">
+              <header>
+                <NavigationBar />
+              </header>
+              <main>
+                {children}
+              </main>
+              <footer>
+                <FooterBar />
+              </footer>
+            </div>
+          </SideBarProvider>
         </MemberProvider>
       </body>
     </html>

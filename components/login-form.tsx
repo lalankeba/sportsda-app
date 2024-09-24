@@ -22,7 +22,7 @@ const LoginForm: React.FC = () => {
 
   useEffect(() => {
     if (member) {
-      router.replace('/member');
+      router.replace('/dashboard');
     }
   }, [member, router]);
 

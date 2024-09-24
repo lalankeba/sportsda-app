@@ -2,6 +2,7 @@ import React from 'react';
 import { Metadata } from 'next';
 import RegistrationForm from '@/components/registration-form';
 import { Alert, Col, Container, Row } from 'react-bootstrap';
+import { FACULTIES_PATH } from '@/utils/paths';
 
 export const metadata: Metadata = {
   title: "Register",
@@ -24,7 +25,7 @@ const RegisterPage = async () => {
   let faculties = [];
   let error = null;
 
-  const facultiesUrl = `${process.env.BACKEND_BASE_URL}${process.env.BACKEND_FACULTIES_PATH}`;
+  const facultiesUrl = `${process.env.BACKEND_BASE_URL}${FACULTIES_PATH}`;
   try {
     const response = await fetch(`${facultiesUrl}`);
     faculties = await response.json();
