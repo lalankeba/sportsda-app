@@ -1,9 +1,10 @@
+import { REGISTER_PATH } from "@/utils/paths";
 import { NextResponse } from "next/server";
 
 export const POST = async (request: Request) => {
   const { firstName, lastName, email, password, gender, facultyId } = await request.json();
 
-  const registerUrl = `${process.env.BACKEND_BASE_URL}${process.env.BACKEND_REGISTER_PATH}`;
+  const registerUrl = `${process.env.BACKEND_BASE_URL}${REGISTER_PATH}`;
 
   try {
     const response = await fetch(registerUrl, {
