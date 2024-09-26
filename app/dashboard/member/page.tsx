@@ -1,8 +1,9 @@
 import React from 'react';
 import { Metadata } from 'next';
 import Member from '@/interfaces/i-member';
-import { Alert } from 'react-bootstrap';
+import { Alert, Col, Row } from 'react-bootstrap';
 import { getToken, getUrl } from '@/utils/common';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: "Member",
@@ -50,17 +51,54 @@ const MemberPage = async () => {
         </div>
       )}
       <div>
-        <h1>{member?.firstName} {member?.lastName}</h1>
-        <h3>{member?.email}</h3>
-        <h6>{member?.gender}</h6>
-        <p>{member?.faculty?.name}</p>
-        <div>
-          <ul>
-          {member?.roles?.map((role, id) => (
-            <li key={id}>{role}</li>
-          ))}
-          </ul>
-        </div>
+        <Row className="mb-2">
+          <Col>
+            <h1>{member?.firstName} {member?.lastName}</h1>
+          </Col>
+        </Row>
+        <Row className="mb-2">
+          <Col xs={4} md={2}>
+            <label>Email:</label>
+          </Col>
+          <Col>
+            <span>{member?.email}</span>
+          </Col>
+        </Row>
+        <Row className="mb-2">
+          <Col xs={4} md={2}>
+            <label>Gender:</label>
+          </Col>
+          <Col>
+            <span>{member?.gender}</span>
+          </Col>
+        </Row>
+        <Row className="mb-2">
+          <Col xs={4} md={2}>
+            <label>Faculty:</label>
+          </Col>
+          <Col>
+            <span>{member?.faculty?.name}</span>
+          </Col>
+        </Row>
+        <Row className="mb-2">
+          <Col xs={4} md={2}>
+            <label>Roles:</label>
+          </Col>
+          <Col>
+            <ul>
+              {member?.roles?.map((role, id) => (
+                <li key={id}>{role}</li>
+              ))}
+            </ul>
+          </Col>
+        </Row>
+        <Row className="mb-2">
+          <Col className="text-end">
+            <Link href="/dashboard/member/edit" className="btn btn-outline-primary" role="button">
+              Edit
+            </Link>
+          </Col>
+        </Row>
       </div>
     </>
   )
