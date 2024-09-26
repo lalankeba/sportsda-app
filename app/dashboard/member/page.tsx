@@ -1,5 +1,9 @@
 import React from 'react';
 import { Metadata } from 'next';
+import Member from '@/interfaces/i-member';
+import { Alert } from 'react-bootstrap';
+import { cookies } from 'next/headers';
+import { KEY_TOKEN } from '@/utils/constants';
 
 export const metadata: Metadata = {
   title: "Member",
@@ -18,12 +22,47 @@ export const metadata: Metadata = {
   }
 };
 
-const MemberPage = () => {
+const MemberPage = async () => {
+  let member: Member | undefined;
+  let error = null;
+
+  try {
+    const cookieStore = cookies();
+    const token = cookieStore.get(KEY_TOKEN)?.value;
+
+    const memberResponse = await fetch(`http://localhost:3000/api/members/member`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    member = await memberResponse.json();
+  } catch (err) {
+    console.log('error: ', err);
+    error = `Unable to load member. Please try again later.`;
+  }
 
   return (
     <>
+      {!member && (
+        <div>
+          <Alert variant="danger">
+            {error}
+          </Alert>
+        </div>
+      )}
       <div>
-        <h1>Member</h1>
+        <h1>{member?.firstName} {member?.lastName}</h1>
+        <h3>{member?.email}</h3>
+        <h6>{member?.gender}</h6>
+        <p>{member?.faculty.name}</p>
+        <div>
+          <ul>
+          {member?.roles.map((role, id) => (
+            <li key={id}>{role}</li>
+          ))}
+          </ul>
+        </div>
       </div>
     </>
   )

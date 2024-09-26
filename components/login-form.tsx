@@ -59,7 +59,7 @@ const LoginForm: React.FC = () => {
           setMember(member);
           
           resetForm();
-          router.replace('/member');
+          router.replace('/dashboard');
         } else {
           const responseBody = await memberResponse.json();
           displayAlert(`${responseBody.message}`, 'danger');

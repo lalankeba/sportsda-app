@@ -1,9 +1,7 @@
 "use client";
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
 import Member from '@/interfaces/i-member';
-
-const STORAGE_KEY_MEMBER = "member";
-const STORAGE_KEY_TOKEN = "token";
+import { KEY_MEMBER, KEY_TOKEN } from '@/utils/constants';
 
 interface MemberContextType {
   member: Member | null;
@@ -24,8 +22,8 @@ export const MemberProvider: React.FC<MemberProviderProps> = ({ children }) => {
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    const storedMember = localStorage.getItem(STORAGE_KEY_MEMBER);
-    const storedToken = localStorage.getItem(STORAGE_KEY_TOKEN);
+    const storedMember = localStorage.getItem(KEY_MEMBER);
+    const storedToken = localStorage.getItem(KEY_TOKEN);
 
     if (storedMember) {
       setMember(JSON.parse(storedMember));
@@ -37,25 +35,30 @@ export const MemberProvider: React.FC<MemberProviderProps> = ({ children }) => {
 
   useEffect(() => {
     if (member) {
-      localStorage.setItem(STORAGE_KEY_MEMBER, JSON.stringify(member));
+      localStorage.setItem(KEY_MEMBER, JSON.stringify(member));
     } else {
-      localStorage.removeItem(STORAGE_KEY_MEMBER);
+      localStorage.removeItem(KEY_MEMBER);
     }
   }, [member]);
 
   useEffect(() => {
     if (token) {
-      localStorage.setItem(STORAGE_KEY_TOKEN, token);
+      localStorage.setItem(KEY_TOKEN, token);
     } else {
-      localStorage.removeItem(STORAGE_KEY_TOKEN);
+      localStorage.removeItem(KEY_TOKEN);
     }
   }, [token]);
 
-  const logout = () => {
-    setMember(null);
-    setToken(null);
-    localStorage.removeItem(STORAGE_KEY_MEMBER);
-    localStorage.removeItem(STORAGE_KEY_TOKEN);
+  const logout = async () => {
+    const response = await fetch('/api/logout', {
+      method: 'POST',
+    });
+    if (response.ok) {
+      setMember(null);
+      setToken(null);
+      localStorage.removeItem(KEY_MEMBER);
+      localStorage.removeItem(KEY_TOKEN);
+    }
   };
 
   return (
