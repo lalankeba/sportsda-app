@@ -33,7 +33,7 @@ const SideBar = () => {
           <Offcanvas.Body>
             <ListGroup variant="flush">
               {sidebarLinks.map((sidebarLink, id) => (
-                <ListGroup.Item key={id} action as={Link} href={sidebarLink.path} onClick={handleClose}>
+                <ListGroup.Item key={id} action as={Link} href={sidebarLink.path} active={pathname === sidebarLink.path} onClick={handleClose}>
                   {sidebarLink.title}
                 </ListGroup.Item>
               ))}
