@@ -1,7 +1,13 @@
 "use client";
 import React, { createContext, ReactNode, useState } from "react";
 
+const sidebarLinks = [
+  { title: "Dashboard", path: '/dashboard'},
+  { title: "Member", path: '/dashboard/member'},
+];
+
 interface SideBarContextType {
+  sidebarLinks: typeof sidebarLinks;
   showOffcanvas: boolean;
   handleClose: () => void;
   handleShow: () => void;
@@ -20,7 +26,7 @@ export const SideBarProvider: React.FC<SideBarProviderProps> = ({children}) => {
   const handleShow = () => setShowOffcanvas(true);
 
   return (
-    <SideBarContext.Provider value={ {showOffcanvas, handleClose, handleShow} }>
+    <SideBarContext.Provider value={ {sidebarLinks, showOffcanvas, handleClose, handleShow} }>
       {children}
     </SideBarContext.Provider>
   );

@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect } from 'react';
 import Image from 'next/image';
-import { Button, Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Button, Container, ListGroup, Nav, Navbar, NavDropdown, Offcanvas } from 'react-bootstrap';
 import logoImage from "@/public/images/logo.png";
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -15,7 +15,7 @@ const NavigationBar: React.FC = () => {
   const pathname = usePathname();
   const router = useRouter();
   const { member, token, logout } = useMember();
-  const { handleShow } = useSideBar();
+  const { sidebarLinks, showOffcanvas, handleClose, handleShow } = useSideBar();
 
   useEffect(() => {
     if (isTokenExpired(token)) {
@@ -32,7 +32,7 @@ const NavigationBar: React.FC = () => {
     <>
       <Navbar collapseOnSelect fixed="top" expand="lg" className="bg-body-tertiary">
         <Container fluid="md">
-          {member && pathname.startsWith('/dashboard') && (
+          {member && (
             <Button variant="outline" className="d-md-none" onClick={handleShow}>
               <FontAwesomeIcon icon={faEllipsisV} />
             </Button>
@@ -77,6 +77,29 @@ const NavigationBar: React.FC = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+      <div>
+        <Offcanvas show={showOffcanvas} onHide={handleClose} className="d-md-none">
+          <Offcanvas.Header closeButton>
+            <Offcanvas.Title>Menu</Offcanvas.Title>
+          </Offcanvas.Header>
+          <Offcanvas.Body>
+            <ListGroup variant="flush">
+              {sidebarLinks.map((sidebarLink, id) => (
+                <ListGroup.Item 
+                  key={id}
+                  action
+                  as={Link}
+                  href={sidebarLink.path}
+                  active={pathname.endsWith(sidebarLink.path)}
+                  onClick={handleClose}
+                >
+                  {sidebarLink.title}
+                </ListGroup.Item>
+              ))}
+            </ListGroup>
+          </Offcanvas.Body>
+        </Offcanvas>
+      </div>
     </>
   )
 }

@@ -56,7 +56,7 @@ const MemberPage = async () => {
         <p>{member?.faculty?.name}</p>
         <div>
           <ul>
-          {member?.roles.map((role, id) => (
+          {member?.roles?.map((role, id) => (
             <li key={id}>{role}</li>
           ))}
           </ul>
