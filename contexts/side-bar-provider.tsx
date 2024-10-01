@@ -3,7 +3,7 @@ import React, { createContext, ReactNode, useState } from "react";
 
 const sidebarLinks = [
   { title: "Dashboard", path: '/dashboard'},
-  { title: "Member", path: '/dashboard/member'},
+  { title: "Profile", path: '/dashboard/profile'},
 ];
 
 interface SideBarContextType {

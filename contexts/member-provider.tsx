@@ -9,6 +9,7 @@ interface MemberContextType {
   setMember: (member: Member | null) => void;
   setToken: (token: string | null) => void;
   logout: () => void;
+  getToken: () => void;
 }
 
 export const MemberContext = createContext<MemberContextType | undefined>(undefined);
@@ -61,8 +62,12 @@ export const MemberProvider: React.FC<MemberProviderProps> = ({ children }) => {
     }
   };
 
+  const getToken = () => {
+    return localStorage.getItem(KEY_TOKEN);
+  }
+
   return (
-    <MemberContext.Provider value={{ member, token, setMember, setToken, logout }}>
+    <MemberContext.Provider value={{ member, token, setMember, setToken, logout, getToken }}>
       {children}
     </MemberContext.Provider>
   );

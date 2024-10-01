@@ -6,12 +6,12 @@ import { getToken, getUrl } from '@/utils/common';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: "Member",
-  description: "View member details",
+  title: "Profile",
+  description: "View profile details",
   keywords: ["dashboard", "sport", "analyze", "analyse", "optimize"],
   openGraph: {
-    title: "Member",
-    description: "View member details",
+    title: "Profile",
+    description: "View profile details",
     type: "website",
     images: [
       {
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   }
 };
 
-const MemberPage = async () => {
+const ProfilePage = async () => {
   let member: Member | undefined;
   let error = null;
 
@@ -94,7 +94,7 @@ const MemberPage = async () => {
         </Row>
         <Row className="mb-2">
           <Col className="text-end">
-            <Link href="/dashboard/member/edit" className="btn btn-outline-primary" role="button">
+            <Link href="/dashboard/profile/edit" className="btn btn-outline-primary" role="button">
               Edit
             </Link>
           </Col>
@@ -104,4 +104,4 @@ const MemberPage = async () => {
   )
 }
 
-export default MemberPage;
+export default ProfilePage;
