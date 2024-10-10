@@ -1,9 +1,8 @@
 import React from 'react';
 import { Metadata } from 'next';
-import Member from '@/interfaces/i-member';
-import { Alert, Col, Row } from 'react-bootstrap';
-import { getToken, getUrl } from '@/utils/common';
-import Link from 'next/link';
+import { Badge, Col, Row } from 'react-bootstrap';
+import { currentUser } from '@clerk/nextjs/server';
+import Image from 'next/image';
 
 export const metadata: Metadata = {
   title: "Profile",
@@ -23,34 +22,101 @@ export const metadata: Metadata = {
 };
 
 const ProfilePage = async () => {
-  let member: Member | undefined;
-  let error = null;
+  // let member: Member | undefined;
+  // let error = null;
+  const user = await currentUser();
 
-  try {
-    const token = getToken();
-    const url = getUrl();
+  const role = user?.publicMetadata.role as string;
 
-    const memberResponse = await fetch(`${url}/api/members/member`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    member = await memberResponse.json();
-  } catch (err) {
-    error = `Unable to load member. Please try again later.`;
-  }
+  // try {
+  //   const token = getToken();
+  //   const url = getUrl();
+
+  //   const memberResponse = await fetch(`${url}/api/members/member`, {
+  //     method: 'GET',
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   });
+  //   member = await memberResponse.json();
+  // } catch (err) {
+  //   error = `Unable to load member. Please try again later.`;
+  // }
 
   return (
     <>
-      {!member && (
+      {user && (
+        <div>
+          <Row className="my-4">
+            <Col xs={4} md={3} className="d-flex justify-content-center">
+              <Image src={user.imageUrl} alt="picture" width={100} height={100} />
+            </Col>
+            <Col>
+              <h1>{user.fullName}</h1>
+            </Col>
+          </Row>
+          <Row className="mb-2">
+            <Col xs={4} md={3}>
+              <label>Emails:</label>
+            </Col>
+            <Col>
+              {user.emailAddresses.map((email) => (
+                <div key={email.id} className="mb-2">
+                  <span>{email.emailAddress}</span>
+                  <Badge
+                    className="ms-2"
+                    bg={email.id === user.primaryEmailAddressId ? "primary" : "secondary"}>
+                    {email.id === user.primaryEmailAddressId ? "primary" : email.verification?.status}
+                  </Badge>
+                </div>
+              ))}
+            </Col>
+          </Row>
+          <Row className="mb-2">
+            <Col xs={4} md={3}>
+              <label>Account created at:</label>
+            </Col>
+            <Col>
+              { new Date(user.createdAt).toLocaleString() }
+            </Col>
+          </Row>
+          <Row className="mb-2">
+            <Col xs={4} md={3}>
+              <label>Last signed in at:</label>
+            </Col>
+            <Col>
+              { user.lastSignInAt && new Date(user.lastSignInAt).toLocaleString() }
+            </Col>
+          </Row>
+          <Row className="mb-2">
+            <Col xs={4} md={3}>
+              <label>Last active at:</label>
+            </Col>
+            <Col>
+              { user.lastActiveAt && new Date(user.lastActiveAt).toLocaleString() }
+            </Col>
+          </Row>
+          {role && (
+            <Row className="mb-2">
+              <Col xs={4} md={3}>
+                <label>Role:</label>
+              </Col>
+              <Col>
+                <p>{role}</p>
+              </Col>
+            </Row>
+          )}
+        </div>
+      )}
+      
+      {/* {!member && (
         <div>
           <Alert variant="danger">
             {error}
           </Alert>
         </div>
-      )}
-      <div>
+      )} */}
+      {/* <div>
         <Row className="mb-2">
           <Col>
             <h1>{member?.firstName} {member?.lastName}</h1>
@@ -99,7 +165,7 @@ const ProfilePage = async () => {
             </Link>
           </Col>
         </Row>
-      </div>
+      </div> */}
     </>
   )
 }

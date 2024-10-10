@@ -1,42 +1,30 @@
 "use client";
-import React, { useEffect } from 'react';
+import React from 'react';
 import Image from 'next/image';
-import { Button, Container, ListGroup, Nav, Navbar, NavDropdown, Offcanvas } from 'react-bootstrap';
+import { Button, Container, ListGroup, Nav, Navbar, Offcanvas } from 'react-bootstrap';
 import logoImage from "@/public/images/logo.png";
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { useMember } from '@/hooks/use-member';
-import { isTokenExpired } from '@/utils/jwt-util';
 import { useSideBar } from '@/hooks/use-side-bar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
 
 const NavigationBar: React.FC = () => {
   const pathname = usePathname();
-  const router = useRouter();
-  const { member, token, logout } = useMember();
   const { sidebarLinks, showOffcanvas, handleClose, handleShow } = useSideBar();
-
-  useEffect(() => {
-    if (isTokenExpired(token)) {
-      logout();
-    }
-  });
-
-  const handleLogout = () => {
-    logout();
-    router.push('/');
-  };
 
   return (
     <>
       <Navbar collapseOnSelect fixed="top" expand="lg" className="bg-body-tertiary">
         <Container fluid="md">
-          {member && (
+
+          <SignedIn>
             <Button variant="outline" className="d-md-none" onClick={handleShow}>
               <FontAwesomeIcon icon={faEllipsisV} />
             </Button>
-          )}
+          </SignedIn>
+
           <Navbar.Brand as={Link} href="/">
             <Image alt='' src={logoImage} width="30" height="30" className="d-inline-block align-top" />
             {' '}
@@ -52,28 +40,27 @@ const NavigationBar: React.FC = () => {
                 Contact
               </Nav.Link>
             </Nav>
-            {!member && (
-              <Nav>
-                <Nav.Link as={Link} href={`/register`} active={pathname.startsWith('/register')}>
-                  Register
-                </Nav.Link>
-                <Nav.Link as={Link} href={`/login`} active={pathname.startsWith('/login')}>
-                  Login
-                </Nav.Link>
-              </Nav>
-            )}
-            {member && (
-              <Nav>
-                <NavDropdown title={`${member.firstName} ${member.lastName}`} id="collapsible-nav-dropdown">
-                  <NavDropdown.Item href="#" onClick={() => router.push('/dashboard')}>
-                    Dashbaord
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href="#" onClick={handleLogout}>
-                    Logout
-                  </NavDropdown.Item>
-                </NavDropdown>
-              </Nav>
-            )}
+            <Nav>
+              <SignedOut>
+                <SignInButton>
+                  <Nav.Link as={Link} href={`/sign-in`} active={pathname.startsWith('/sign-in')}>
+                    Sign in
+                  </Nav.Link>
+                </SignInButton>
+              </SignedOut>
+              <SignedIn>
+                <UserButton showName>
+                  <UserButton.MenuItems>
+                    <UserButton.Link
+                      label="Dashboard"
+                      labelIcon={<FontAwesomeIcon icon={faEllipsisV} />}
+                      href="/dashboard"
+                    />
+                  </UserButton.MenuItems>
+                </UserButton>
+              </SignedIn>
+            </Nav>
+
           </Navbar.Collapse>
         </Container>
       </Navbar>

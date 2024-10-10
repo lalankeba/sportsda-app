@@ -1,12 +1,11 @@
 import { Col, Container, Row } from "react-bootstrap";
 import SideBar from "@/components/side-bar";
 
-export default function MemberLayout({
+export default function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  
 
   return (
     <Container fluid="md">
@@ -22,7 +21,6 @@ export default function MemberLayout({
           </section>
         </Col>
       </Row>
-      
     </Container>
   );
 }
