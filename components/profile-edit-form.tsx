@@ -10,29 +10,12 @@ import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 import Link from 'next/link';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import MessageAlert, { AlertHandler } from './message-alert';
-import { fetchMember } from '@/services/member-service';
+import { fetchMember, updateMember } from '@/services/member-service';
+import ProfileEditFormValues from '@/interfaces/profile-edit-form-values';
 
 interface ProfileEditProps {
   faculties: Faculty[];
 }
-
-interface ProfileEditFormValues {
-  gender: Gender;
-  facultyId: string;
-  v: number;
-}
-
-const updateMember = async (values: ProfileEditFormValues) => {
-  const response = await fetch(`/api/members/member`, {
-    method: 'PUT',
-    body: JSON.stringify(values),
-  });
-  if (!response.ok) {
-    const responseBody = await response.json();
-    throw new Error(responseBody.message || 'Error updating member');
-  }
-  return await response.json();
-};
 
 const ProfileEditForm: React.FC<ProfileEditProps> = ({ faculties }) => {
   const queryClient = useQueryClient();

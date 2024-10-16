@@ -1,11 +1,9 @@
 import React from 'react';
 import { Metadata } from 'next';
-import { Alert, Badge, Col, Row } from 'react-bootstrap';
-import { auth, currentUser } from '@clerk/nextjs/server';
+import { Badge, Col, Row } from 'react-bootstrap';
+import { currentUser } from '@clerk/nextjs/server';
 import Image from 'next/image';
-import { MEMBER_SELF_PATH } from '@/utils/paths';
 import Link from 'next/link';
-import Member from '@/interfaces/i-member';
 import ProfileView from '@/components/profile.view';
 
 export const metadata: Metadata = {
@@ -26,38 +24,11 @@ export const metadata: Metadata = {
 };
 
 const ProfilePage = async () => {
-  // let member: Member | undefined = undefined;
-  // let error = null;
   const user = await currentUser();
   const role = user?.publicMetadata.role as string;
 
-  // try {
-  //   const { getToken } = auth();
-  //   const token = await getToken();
-
-  //   const memberResponse = await fetch(`${process.env.BACKEND_BASE_URL}${MEMBER_SELF_PATH}`, {
-  //     method: 'GET',
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   });
-
-  //   if (memberResponse.ok) {
-  //     member = await memberResponse.json();
-  //   }
-  // } catch (err) {
-  //   error = `Unable to load faculties. Please try again later.`;
-  // }
-
   return (
     <>
-      {/* {error && (
-        <div>
-          <Alert variant="danger">
-            {error}
-          </Alert>
-        </div>
-      )} */}
       {user && (
         <div>
           <Row className="my-4">
@@ -129,64 +100,6 @@ const ProfilePage = async () => {
           </Row>
         </div>
       )}
-      
-      {/* {!member && (
-        <div>
-          <Alert variant="danger">
-            {error}
-          </Alert>
-        </div>
-      )} */}
-      {/* <div>
-        <Row className="mb-2">
-          <Col>
-            <h1>{member?.firstName} {member?.lastName}</h1>
-          </Col>
-        </Row>
-        <Row className="mb-2">
-          <Col xs={4} md={2}>
-            <label>Email:</label>
-          </Col>
-          <Col>
-            <span>{member?.email}</span>
-          </Col>
-        </Row>
-        <Row className="mb-2">
-          <Col xs={4} md={2}>
-            <label>Gender:</label>
-          </Col>
-          <Col>
-            <span>{member?.gender}</span>
-          </Col>
-        </Row>
-        <Row className="mb-2">
-          <Col xs={4} md={2}>
-            <label>Faculty:</label>
-          </Col>
-          <Col>
-            <span>{member?.faculty?.name}</span>
-          </Col>
-        </Row>
-        <Row className="mb-2">
-          <Col xs={4} md={2}>
-            <label>Roles:</label>
-          </Col>
-          <Col>
-            <ul>
-              {member?.roles?.map((role, id) => (
-                <li key={id}>{role}</li>
-              ))}
-            </ul>
-          </Col>
-        </Row>
-        <Row className="mb-2">
-          <Col className="text-end">
-            <Link href="/dashboard/profile/edit" className="btn btn-outline-primary" role="button">
-              Edit
-            </Link>
-          </Col>
-        </Row>
-      </div> */}
     </>
   )
 }
