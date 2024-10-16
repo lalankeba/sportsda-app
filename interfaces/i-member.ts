@@ -7,11 +7,8 @@ interface MemberFaculty {
 
 interface Member {
   id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
+  userId: string;
   gender: Gender;
-  roles: string[];
   faculty: MemberFaculty;
   createdAt: Date;
   updatedAt: Date;

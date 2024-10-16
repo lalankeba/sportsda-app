@@ -1,16 +1,13 @@
-"use client";
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 
 const FooterBar = () => {
   return (
     <>
-      <Container>
-        <Row>
-          <Col>
-            <div className="d-flex flex-column justify-content-center align-items-center">
-              <div>Copyright 2024 Sports Analyzer</div>
-            </div>
+      <Container fluid="md">
+        <Row style={{ minHeight: '3.5rem' }}>
+          <Col className="d-flex justify-content-center align-items-center">
+            <div>Copyright 2024 Sports Analyzer</div>
           </Col>
         </Row>
       </Container>
@@ -18,4 +15,4 @@ const FooterBar = () => {
   )
 }
 
-export default FooterBar
+export default FooterBar;

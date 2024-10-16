@@ -9,7 +9,7 @@ const getToken = () => {
   return token;
 }
 
-const getUrl = () => {
+const getFrontendUrl = () => {
   const headersList = headers();
   const host = headersList.get('host');
   const xForwardedProto = headersList.get('x-forwarded-proto');
@@ -18,4 +18,4 @@ const getUrl = () => {
   return `${protocol}://${host}`;
 }
 
-export { getToken, getUrl };
+export { getToken, getFrontendUrl };

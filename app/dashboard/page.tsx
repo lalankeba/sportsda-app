@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   }
 };
 
-const MemberPage = () => {
+const DashboardPage = () => {
   return (
     <>
       <div>
@@ -28,4 +28,4 @@ const MemberPage = () => {
   )
 }
 
-export default MemberPage;
+export default DashboardPage;

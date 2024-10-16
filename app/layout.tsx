@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Exo_2 } from "next/font/google";
 import NavigationBar from "@/components/navigation-bar";
 import FooterBar from "@/components/footer-bar";
-import { MemberProvider } from "@/contexts/member-provider";
+import { ClerkProvider } from "@clerk/nextjs";
 import { SideBarProvider } from "@/contexts/side-bar-provider";
+import { QueryProvider } from "@/contexts/query-provider";
 import "./globals.scss";
 
 const exo2 = Exo_2({
@@ -35,30 +36,47 @@ export const metadata: Metadata = {
   }
 };
 
+const localization = {
+  signUp: {
+    start: {
+      title: "Sign up with {{applicationName}}"
+    }
+  }
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-bs-theme="light">
-      <body className={exo2.className}>
-        <MemberProvider>
+    <ClerkProvider
+      appearance={{
+        variables: {
+          fontSize: 'inherit'
+        }
+      }}
+      localization={localization}
+    >
+      <html lang="en" data-bs-theme="light">
+        <body className={exo2.className}>
           <SideBarProvider>
-            <div className="app">
-              <header>
-                <NavigationBar />
-              </header>
-              <main>
-                {children}
-              </main>
-              <footer>
-                <FooterBar />
-              </footer>
-            </div>
+            <QueryProvider>
+              <div className="app">
+                <header>
+                  <NavigationBar />
+                </header>
+                <main>
+                  {children}
+                </main>
+                <footer>
+                  <FooterBar />
+                </footer>
+              </div>
+            </QueryProvider>
           </SideBarProvider>
-        </MemberProvider>
-      </body>
-    </html>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
