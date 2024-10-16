@@ -4,6 +4,7 @@ import NavigationBar from "@/components/navigation-bar";
 import FooterBar from "@/components/footer-bar";
 import { ClerkProvider } from "@clerk/nextjs";
 import { SideBarProvider } from "@/contexts/side-bar-provider";
+import { QueryProvider } from "@/contexts/query-provider";
 import "./globals.scss";
 
 const exo2 = Exo_2({
@@ -60,17 +61,19 @@ export default function RootLayout({
       <html lang="en" data-bs-theme="light">
         <body className={exo2.className}>
           <SideBarProvider>
-            <div className="app">
-              <header>
-                <NavigationBar />
-              </header>
-              <main>
-                {children}
-              </main>
-              <footer>
-                <FooterBar />
-              </footer>
-            </div>
+            <QueryProvider>
+              <div className="app">
+                <header>
+                  <NavigationBar />
+                </header>
+                <main>
+                  {children}
+                </main>
+                <footer>
+                  <FooterBar />
+                </footer>
+              </div>
+            </QueryProvider>
           </SideBarProvider>
         </body>
       </html>

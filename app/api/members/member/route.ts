@@ -1,10 +1,10 @@
 import { MEMBER_SELF_PATH } from "@/utils/paths";
+import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
 export const GET = async (request: Request) => {
   const memberSelfUrl = `${process.env.BACKEND_BASE_URL}${MEMBER_SELF_PATH}`;
-  const headers = new Headers(request.headers);
-  headers.set('Content-Type', 'application/json');
+  const headers = await getNecessaryHeaders(request);
 
   try {
     const response = await fetch(memberSelfUrl, {
@@ -21,23 +21,33 @@ export const GET = async (request: Request) => {
 }
 
 export const PUT = async (request: Request) => {
-  const { firstName, lastName, gender, facultyId, v } = await request.json();
+  const { gender, facultyId, v } = await request.json();
 
   const updateUrl = `${process.env.BACKEND_BASE_URL}${MEMBER_SELF_PATH}`;
-  const headers = new Headers(request.headers);
-  headers.set('Content-Type', 'application/json');
+  const headers = await getNecessaryHeaders(request);
 
   try {
     const response = await fetch(updateUrl, {
       method: 'PUT',
       headers: headers,
-      body: JSON.stringify({ firstName, lastName, gender, facultyId, v }),
+      body: JSON.stringify({ gender, facultyId, v }),
     });
 
     const responseBody = await response.json();
     return NextResponse.json(responseBody, { status: response.status });
   } catch (error) {
-    console.error('error occurred in update: ', error);
+    console.error('error occurred in member update: ', error);
     return NextResponse.json({ error: 'Some error occurred. Please try later.' }, { status: 500 });
   }
+}
+
+const getNecessaryHeaders = async (request: Request) => {
+  const { getToken } = auth();
+  const token = await getToken();
+
+  const headers = new Headers(request.headers);
+  headers.set('Authorization', `Bearer ${token}`);
+  headers.set('Content-Type', 'application/json');
+
+  return headers;
 }

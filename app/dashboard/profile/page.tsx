@@ -1,8 +1,12 @@
 import React from 'react';
 import { Metadata } from 'next';
-import { Badge, Col, Row } from 'react-bootstrap';
-import { currentUser } from '@clerk/nextjs/server';
+import { Alert, Badge, Col, Row } from 'react-bootstrap';
+import { auth, currentUser } from '@clerk/nextjs/server';
 import Image from 'next/image';
+import { MEMBER_SELF_PATH } from '@/utils/paths';
+import Link from 'next/link';
+import Member from '@/interfaces/i-member';
+import ProfileView from '@/components/profile.view';
 
 export const metadata: Metadata = {
   title: "Profile",
@@ -22,29 +26,38 @@ export const metadata: Metadata = {
 };
 
 const ProfilePage = async () => {
-  // let member: Member | undefined;
+  // let member: Member | undefined = undefined;
   // let error = null;
   const user = await currentUser();
-
   const role = user?.publicMetadata.role as string;
 
   // try {
-  //   const token = getToken();
-  //   const url = getUrl();
+  //   const { getToken } = auth();
+  //   const token = await getToken();
 
-  //   const memberResponse = await fetch(`${url}/api/members/member`, {
+  //   const memberResponse = await fetch(`${process.env.BACKEND_BASE_URL}${MEMBER_SELF_PATH}`, {
   //     method: 'GET',
   //     headers: {
   //       Authorization: `Bearer ${token}`,
   //     },
   //   });
-  //   member = await memberResponse.json();
+
+  //   if (memberResponse.ok) {
+  //     member = await memberResponse.json();
+  //   }
   // } catch (err) {
-  //   error = `Unable to load member. Please try again later.`;
+  //   error = `Unable to load faculties. Please try again later.`;
   // }
 
   return (
     <>
+      {/* {error && (
+        <div>
+          <Alert variant="danger">
+            {error}
+          </Alert>
+        </div>
+      )} */}
       {user && (
         <div>
           <Row className="my-4">
@@ -72,6 +85,7 @@ const ProfilePage = async () => {
               ))}
             </Col>
           </Row>
+          <ProfileView />
           <Row className="mb-2">
             <Col xs={4} md={3}>
               <label>Account created at:</label>
@@ -106,6 +120,13 @@ const ProfilePage = async () => {
               </Col>
             </Row>
           )}
+          <Row className="mb-2">
+            <Col className="text-end">
+              <Link href="/dashboard/profile/edit" className="btn btn-outline-primary" role="button">
+                Edit
+              </Link>
+            </Col>
+          </Row>
         </div>
       )}
       

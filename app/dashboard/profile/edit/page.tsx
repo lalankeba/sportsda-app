@@ -1,11 +1,10 @@
 import React from 'react';
 import { Metadata } from 'next';
-import Member from '@/interfaces/i-member';
 import { Alert, Col, Row } from 'react-bootstrap';
-import { getToken, getUrl } from '@/utils/common';
 import { FACULTIES_PATH } from '@/utils/paths';
 import Faculty from '@/interfaces/i-faculty';
 import ProfileEditForm from '@/components/profile-edit-form';
+import { auth } from '@clerk/nextjs/server';
 
 export const metadata: Metadata = {
   title: "Edit Profile",
@@ -25,27 +24,22 @@ export const metadata: Metadata = {
 };
 
 const EditProfilePage = async () => {
-  let member: Member | undefined = undefined;
   let faculties: Faculty[] = [];
   let error = null;
 
   try {
-    const token = getToken();
-    const url = getUrl();
+    const { getToken } = auth();
+    const token = await getToken();
 
-    const memberResponse = await fetch(`${url}/api/members/member`, {
+    const facultiesResponse = await fetch(`${process.env.BACKEND_BASE_URL}${FACULTIES_PATH}`, {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`
       },
     });
 
-    if (memberResponse.ok) {
-      member = await memberResponse.json();
-
-      const facultiesUrl = `${process.env.BACKEND_BASE_URL}${FACULTIES_PATH}`;
-      const response = await fetch(`${facultiesUrl}`);
-      faculties = await response.json();
+    if (facultiesResponse.ok) {
+      faculties = await facultiesResponse.json();
     }
     
   } catch (err) {
@@ -70,7 +64,7 @@ const EditProfilePage = async () => {
           </Row>
           <Row>
             <Col>
-              <ProfileEditForm faculties={faculties} member={member} />
+              <ProfileEditForm faculties={faculties} />
             </Col>
           </Row>
         </div>
