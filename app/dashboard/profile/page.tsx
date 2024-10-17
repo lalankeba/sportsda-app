@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 
 const ProfilePage = async () => {
   const user = await currentUser();
-  const role = user?.publicMetadata.role as string;
+  const roles = user?.publicMetadata.roles as string[];
 
   return (
     <>
@@ -81,13 +81,13 @@ const ProfilePage = async () => {
               { user.lastActiveAt && new Date(user.lastActiveAt).toLocaleString() }
             </Col>
           </Row>
-          {role && (
+          {roles && (
             <Row className="mb-2">
               <Col xs={4} md={3}>
-                <label>Role:</label>
+                <label>Roles:</label>
               </Col>
               <Col>
-                <p>{role}</p>
+                <p>{roles.join(', ')}</p>
               </Col>
             </Row>
           )}
