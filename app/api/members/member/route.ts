@@ -40,14 +40,3 @@ export const PUT = async (request: Request) => {
     return NextResponse.json({ error: 'Some error occurred. Please try later.' }, { status: 500 });
   }
 }
-
-// const getNecessaryHeaders = async (request: Request) => {
-//   const { getToken } = auth();
-//   const token = await getToken();
-
-//   const headers = new Headers(request.headers);
-//   headers.set('Authorization', `Bearer ${token}`);
-//   headers.set('Content-Type', 'application/json');
-
-//   return headers;
-// }
