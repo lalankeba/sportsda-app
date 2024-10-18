@@ -1,4 +1,4 @@
-import FacultyNewFormValues from "@/interfaces/faculty-new-form-values";
+import FacultyAddFormValues from "@/interfaces/faculty-add-form-values";
 
 const fetchFaculties = async () => {
   const response = await fetch(`/api/faculties`, {
@@ -10,7 +10,7 @@ const fetchFaculties = async () => {
   return await response.json();
 };
 
-const addFaculty = async (values: FacultyNewFormValues) => {
+const addFaculty = async (values: FacultyAddFormValues) => {
   const response = await fetch(`/api/faculties`, {
     method: 'POST',
     body: JSON.stringify(values),
