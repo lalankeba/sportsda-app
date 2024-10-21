@@ -29,11 +29,11 @@ export const PUT = async (request: Request, { params }: { params: { id: string }
   const { id } = params;
   const { name, v } = await request.json();
 
-  const updateUrl = `${process.env.BACKEND_BASE_URL}${FACULTIES_PATH}/${id}`;
+  const url = `${process.env.BACKEND_BASE_URL}${FACULTIES_PATH}/${id}`;
   const headers = await getNecessaryHeaders(request);
 
   try {
-    const response = await fetch(updateUrl, {
+    const response = await fetch(url, {
       method: 'PUT',
       headers: headers,
       body: JSON.stringify({ name, v }),
@@ -43,6 +43,26 @@ export const PUT = async (request: Request, { params }: { params: { id: string }
     return NextResponse.json(responseBody, { status: response.status });
   } catch (error) {
     console.error('error occurred in updating faculty: ', error);
+    return NextResponse.json({ error: 'Some error occurred. Please try later.' }, { status: 500 });
+  }
+}
+
+export const DELETE = async (request: Request, { params }: { params: { id: string } }) => {
+  const { id } = params;
+
+  const url = `${process.env.BACKEND_BASE_URL}${FACULTIES_PATH}/${id}`;
+  const headers = await getNecessaryHeaders(request);
+
+  try {
+    const response = await fetch(url, {
+      method: 'DELETE',
+      headers: headers,
+    });
+
+    const responseBody = await response.json();
+    return NextResponse.json(responseBody, { status: response.status });
+  } catch (error) {
+    console.error('error occurred in deleting faculty: ', error);
     return NextResponse.json({ error: 'Some error occurred. Please try later.' }, { status: 500 });
   }
 }

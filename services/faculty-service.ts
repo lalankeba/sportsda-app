@@ -44,4 +44,15 @@ const updateFaculty = async (values: FacultyEditFormValues) => {
   return await response.json();
 };
 
-export { fetchFaculties, fetchFaculty, addFaculty, updateFaculty }
+const deleteFaculty = async (id: string) => {
+  const response = await fetch(`/api/faculties/${id}`, {
+    method: 'DELETE',
+  });
+  if (!response.ok) {
+    const responseBody = await response.json();
+    throw new Error(responseBody.message || 'Error deleting faculty');
+  }
+  return await response.json();
+};
+
+export { fetchFaculties, fetchFaculty, addFaculty, updateFaculty, deleteFaculty }
