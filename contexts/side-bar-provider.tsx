@@ -4,6 +4,7 @@ import React, { createContext, ReactNode, useState } from "react";
 const sidebarLinks = [
   { title: "Dashboard", path: '/dashboard'},
   { title: "Profile", path: '/dashboard/profile'},
+  { title: "Faculties", path: '/dashboard/faculties'},
 ];
 
 interface SideBarContextType {

@@ -1,5 +1,5 @@
 import { MEMBER_SELF_PATH } from "@/utils/paths";
-import { auth } from "@clerk/nextjs/server";
+import { getNecessaryHeaders } from "@/utils/server-headers";
 import { NextResponse } from "next/server";
 
 export const GET = async (request: Request) => {
@@ -39,15 +39,4 @@ export const PUT = async (request: Request) => {
     console.error('error occurred in member update: ', error);
     return NextResponse.json({ error: 'Some error occurred. Please try later.' }, { status: 500 });
   }
-}
-
-const getNecessaryHeaders = async (request: Request) => {
-  const { getToken } = auth();
-  const token = await getToken();
-
-  const headers = new Headers(request.headers);
-  headers.set('Authorization', `Bearer ${token}`);
-  headers.set('Content-Type', 'application/json');
-
-  return headers;
 }
