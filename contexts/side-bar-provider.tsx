@@ -1,14 +1,15 @@
 "use client";
 import React, { createContext, ReactNode, useState } from "react";
+import { useUser } from "@clerk/nextjs";
+import Role from "@/enums/role";
 
-const sidebarLinks = [
+const baseLinks = [
   { title: "Dashboard", path: '/dashboard'},
   { title: "Profile", path: '/dashboard/profile'},
-  { title: "Faculties", path: '/dashboard/faculties'},
 ];
 
 interface SideBarContextType {
-  sidebarLinks: typeof sidebarLinks;
+  sidebarLinks: { title: string; path: string }[];
   showOffcanvas: boolean;
   handleClose: () => void;
   handleShow: () => void;
@@ -22,6 +23,37 @@ interface SideBarProviderProps {
 
 export const SideBarProvider: React.FC<SideBarProviderProps> = ({children}) => {
   const [showOffcanvas, setShowOffcanvas] = useState(false);
+  const { user } = useUser();
+  const memberRoles = user?.publicMetadata?.roles as Role[];
+
+  const sidebarLinks = [...baseLinks];
+
+  const adminLinks = [
+    { title: "Faculties", path: '/dashboard/faculties' },
+  ];
+
+  const instructorLinks = [
+    { title: "Matches", path: '/dashboard/matches' },
+  ];
+
+  if (memberRoles?.includes(Role.Admin)) {
+    adminLinks.forEach(newLink => {
+      const isLinkExists = sidebarLinks.find(link => link.path === newLink.path);
+      if (!isLinkExists) {
+        sidebarLinks.push(newLink);
+      }
+    });
+  }
+
+  if (memberRoles?.includes(Role.Instructor)) {
+    instructorLinks.forEach(newLink => {
+      const isLinkExists = sidebarLinks.find(link => link.path === newLink.path);
+      if (!isLinkExists) {
+        sidebarLinks.push(newLink);
+      }
+    });
+  }
+
 
   const handleClose = () => setShowOffcanvas(false);
   const handleShow = () => setShowOffcanvas(true);
