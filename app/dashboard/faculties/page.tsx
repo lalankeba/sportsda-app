@@ -32,7 +32,7 @@ const FacultiesPage = () => {
                 <p>{faculty.name}</p>
               </Col>
               <Col>
-                <Link href="/dashboard/faculties/edit" className="btn btn-outline-secondary me-2" role="button">
+                <Link href={`/dashboard/faculties/edit/${faculty.id}`} className="btn btn-outline-secondary me-2" role="button">
                   <FontAwesomeIcon icon={faPenToSquare} />
                 </Link>
                 <Link href="/dashboard/faculties/edit" className="btn btn-outline-danger me-2" role="button">

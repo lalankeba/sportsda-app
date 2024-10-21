@@ -1,4 +1,4 @@
-import FacultyAddFormValues from "@/interfaces/faculty-add-form-values";
+import { FacultyAddFormValues, FacultyEditFormValues } from "@/interfaces/faculty-form-values";
 
 const fetchFaculties = async () => {
   const response = await fetch(`/api/faculties`, {
@@ -6,6 +6,16 @@ const fetchFaculties = async () => {
   });
   if (!response.ok) {
     throw new Error('Error fetching data');
+  }
+  return await response.json();
+};
+
+const fetchFaculty = async (id: string) => {
+  const response = await fetch(`/api/faculties/${id}`, {
+    method: 'GET',
+  });
+  if (!response.ok) {
+    throw new Error('Failed to fetch faculty');
   }
   return await response.json();
 };
@@ -22,4 +32,16 @@ const addFaculty = async (values: FacultyAddFormValues) => {
   return await response.json();
 };
 
-export { fetchFaculties, addFaculty }
+const updateFaculty = async (values: FacultyEditFormValues) => {
+  const response = await fetch(`/api/faculties/${values.id}`, {
+    method: 'PUT',
+    body: JSON.stringify({name: values.name, v: values.v}),
+  });
+  if (!response.ok) {
+    const responseBody = await response.json();
+    throw new Error(responseBody.message || 'Error updating faculty');
+  }
+  return await response.json();
+};
+
+export { fetchFaculties, fetchFaculty, addFaculty, updateFaculty }
