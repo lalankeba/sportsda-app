@@ -3,17 +3,28 @@ import { NextResponse } from "next/server";
 import Role from "./enums/role";
 
 const isProtectedRoute = createRouteMatcher(['/dashboard(.*)']);
-const isAdminRoute = createRouteMatcher(['/admin(.*)']);
+const isAdminRoute = createRouteMatcher([
+  '/dashboard/faculties(.*)',
+  '/dashboard/members(.*)',
+]);
+const isInstructorRoute = createRouteMatcher([
+  '/dashboard/matches(.*)',
+]);
 
 export default clerkMiddleware((auth, req) => {
   if (isProtectedRoute(req)) auth().protect();
 
-  // Protect all routes starting with `/admin`
-  const memberRoles = auth().sessionClaims?.metadata?.roles as Role[];
-  const requiredRoles = [Role.Admin];
-  const hasRoles = requiredRoles.some(role => memberRoles?.includes(role));
+  const memberRoles = auth().sessionClaims?.metadata?.roles as Role[] || [];
 
-  if (isAdminRoute(req) && !hasRoles) {
+  const isAdmin = memberRoles.includes(Role.Admin);
+  const isInstructor = memberRoles.includes(Role.Instructor);
+
+  if (isAdminRoute(req) && !isAdmin) {
+    const url = new URL('/', req.url);
+    return NextResponse.redirect(url);
+  }
+
+  if (isInstructorRoute(req) && !isInstructor) {
     const url = new URL('/', req.url);
     return NextResponse.redirect(url);
   }
