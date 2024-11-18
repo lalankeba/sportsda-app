@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 const ContactPage = () => {
   return (
     <>
-      <Container fluid="sm">
+      <Container fluid="sm" className="full-height-container">
         <Row>
           <Col xs={12} md={8} lg={6}>
             <div>
