@@ -83,7 +83,7 @@ const LoginForm: React.FC = () => {
 
   return (
     <>
-      <div className="d-flex flex-column justify-content-center align-items-center" style={{ minHeight: 'calc(100svh - 3.5rem - 3.5rem)' }}>
+      <div className="d-flex flex-column justify-content-center align-items-center">
         <Card className='m-3 shadow w-100'>
           <Card.Body>
             <Card.Title className="h1">Login</Card.Title>

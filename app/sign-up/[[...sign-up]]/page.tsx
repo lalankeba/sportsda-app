@@ -24,7 +24,7 @@ const SignUpPage = () => {
   return (
     <>
       <Container fluid="md">
-        <Row className="d-flex flex-column justify-content-center align-items-center my-4" style={{ minHeight: 'calc(100svh - 5rem - 5rem)' }}>
+        <Row className="d-flex flex-column justify-content-center align-items-center my-4">
           <Col xs={12} md={6} lg={4} className="d-flex justify-content-center">
             <SignUp />
           </Col>

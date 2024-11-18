@@ -16,7 +16,7 @@ const Error = ({
     <Container>
       <Row>
         <Col>
-          <div className="d-flex flex-column justify-content-center align-items-center" style={{ minHeight: 'calc(100svh - 3.5rem - 3.5rem)' }}>
+          <div className="d-flex flex-column justify-content-center align-items-center full-height-container">
             <h1 className="m-4">Some Error Occurred</h1>
             <h2 className="m-4">
               <FontAwesomeIcon icon={faCircleExclamation} size='2x' />

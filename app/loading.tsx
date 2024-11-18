@@ -6,7 +6,9 @@ const Loading = () => {
     <Container>
       <Row>
         <Col>
-          <div className="d-flex flex-column justify-content-center align-items-center">
+          <div 
+            className="d-flex flex-column justify-content-center align-items-center full-height-container"
+          >
             <h1 className="m-4">Loading...</h1>
             <Spinner animation="border" role="status" className="m-4">
               <span className="visually-hidden">Loading...</span>
