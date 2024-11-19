@@ -13,10 +13,6 @@ export const GET = async (request: Request, { params }: { params: { id: string }
       headers: headers,
     });
 
-    if (!response.ok) {
-      return NextResponse.json({ error: 'Faculty not found' }, { status: response.status });
-    }
-
     const responseBody = await response.json();
     return NextResponse.json(responseBody, { status: response.status });
   } catch (error) {

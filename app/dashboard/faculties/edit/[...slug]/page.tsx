@@ -27,7 +27,7 @@ const EditFacultyPage = ({
     queryFn: fetchFaculties
   });
   const alertRef = useRef<AlertHandler>(null);
-  const { data: faculty, isLoading: isFacultyLoading } = useQuery({
+  const { data: faculty, isLoading: isFacultyLoading, error } = useQuery({
     queryKey: ['faculty', facultyId],
     queryFn: () => fetchFaculty(facultyId),
     enabled: !!facultyId, // Only run this query when `id` is available
@@ -72,7 +72,13 @@ const EditFacultyPage = ({
             <span className="visually-hidden">Loading...</span>
           </Spinner>
         )}
-        {!isFacultyLoading && (
+        {error && (
+          <div>
+            <h1>Error Occurred</h1>
+            <p>{error instanceof Error ? error.message : "An unexpected error occurred"}</p>
+          </div>
+        )}
+        {!isFacultyLoading && !error && (
           <div>
             <div>
               <h1>Update Faculty</h1>
