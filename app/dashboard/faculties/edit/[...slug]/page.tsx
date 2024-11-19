@@ -27,7 +27,7 @@ const EditFacultyPage = ({
     queryFn: fetchFaculties
   });
   const alertRef = useRef<AlertHandler>(null);
-  const { data: faculty, isLoading } = useQuery({
+  const { data: faculty, isLoading: isFacultyLoading } = useQuery({
     queryKey: ['faculty', facultyId],
     queryFn: () => fetchFaculty(facultyId),
     enabled: !!facultyId, // Only run this query when `id` is available
@@ -66,57 +66,59 @@ const EditFacultyPage = ({
 
   return (
     <>
-      {isLoading && (
-        <Spinner animation="border" role="status" className="m-4">
-          <span className="visually-hidden">Loading...</span>
-        </Spinner>
-      )}
-      {!isLoading && (
-        <div className="full-height-container">
+      <div className="full-height-container">
+        {isFacultyLoading && (
+          <Spinner animation="border" role="status" className="m-4">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        )}
+        {!isFacultyLoading && (
           <div>
-            <h1>Update Faculty</h1>
+            <div>
+              <h1>Update Faculty</h1>
+            </div>
+            <Row className="mt-4">
+              <Col>
+                <MessageAlert ref={alertRef} />
+                <Formik
+                  initialValues={{
+                    id: facultyId,
+                    name: faculty?.name || "",
+                    v: faculty?.v || 0
+                  }}
+                  validationSchema={editFacultyValidationSchema}
+                  onSubmit={handleSubmit}
+                  enableReinitialize
+                >
+                  {({ isSubmitting }) => (
+                    <Form noValidate className="my-4">
+                      <fieldset disabled={isSubmitting}>
+                        <BootstrapForm.Group controlId="formName" className="mb-3">
+                          <BootstrapForm.Label>{`Name`}</BootstrapForm.Label>
+                          <Field name="name" className="form-control" type="text" placeholder={`Faculty name`} />
+                          <ErrorMessage name="name" component="p" className="text-danger" />
+                        </BootstrapForm.Group>
+                      </fieldset>
+                      <Button type="submit" variant="primary" disabled={isSubmitting}>
+                        {isSubmitting ? (
+                          <>
+                            <FontAwesomeIcon icon={faCircleNotch} spin /> {`Updating profile...`}
+                          </>
+                        ) : (
+                          `Update`
+                        )}
+                      </Button>
+                      <Link href="/dashboard/faculties" className="btn btn-outline-secondary mx-2" role="button">
+                        Cancel
+                      </Link>
+                    </Form>
+                  )}
+                </Formik>
+              </Col>
+            </Row>
           </div>
-          <Row className="mt-4">
-            <Col>
-              <MessageAlert ref={alertRef} />
-              <Formik
-                initialValues={{
-                  id: facultyId,
-                  name: faculty?.name || "",
-                  v: faculty?.v || 0
-                }}
-                validationSchema={editFacultyValidationSchema}
-                onSubmit={handleSubmit}
-                enableReinitialize
-              >
-                {({ isSubmitting }) => (
-                  <Form noValidate className="my-4">
-                    <fieldset disabled={isSubmitting}>
-                      <BootstrapForm.Group controlId="formName" className="mb-3">
-                        <BootstrapForm.Label>{`Name`}</BootstrapForm.Label>
-                        <Field name="name" className="form-control" type="text" placeholder={`Faculty name`} />
-                        <ErrorMessage name="name" component="p" className="text-danger" />
-                      </BootstrapForm.Group>
-                    </fieldset>
-                    <Button type="submit" variant="primary" disabled={isSubmitting}>
-                      {isSubmitting ? (
-                        <>
-                          <FontAwesomeIcon icon={faCircleNotch} spin /> {`Updating profile...`}
-                        </>
-                      ) : (
-                        `Update`
-                      )}
-                    </Button>
-                    <Link href="/dashboard/faculties" className="btn btn-outline-secondary mx-2" role="button">
-                      Cancel
-                    </Link>
-                  </Form>
-                )}
-              </Formik>
-            </Col>
-          </Row>
-        </div>
-      )}
+        )}
+      </div>
     </>
   )
 }

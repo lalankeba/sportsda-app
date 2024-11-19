@@ -85,10 +85,10 @@ const NewFacultyPage = () => {
                     <Button type="submit" variant="primary" disabled={isSubmitting}>
                       {isSubmitting ? (
                         <>
-                          <FontAwesomeIcon icon={faCircleNotch} spin /> {`Updating profile...`}
+                          <FontAwesomeIcon icon={faCircleNotch} spin /> {`Saving faculty...`}
                         </>
                       ) : (
-                        `Update`
+                        `Save`
                       )}
                     </Button>
                     <Link href="/dashboard/faculties" className="btn btn-outline-secondary mx-2" role="button">
