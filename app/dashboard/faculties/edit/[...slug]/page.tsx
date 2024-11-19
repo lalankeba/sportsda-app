@@ -72,7 +72,7 @@ const EditFacultyPage = ({
         </Spinner>
       )}
       {!isLoading && (
-        <>
+        <div className="full-height-container">
           <div>
             <h1>Update Faculty</h1>
           </div>
@@ -115,7 +115,7 @@ const EditFacultyPage = ({
               </Formik>
             </Col>
           </Row>
-        </>
+        </div>
       )}
     </>
   )

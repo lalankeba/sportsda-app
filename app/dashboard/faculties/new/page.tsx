@@ -59,7 +59,7 @@ const NewFacultyPage = () => {
         </Spinner>
       )}
       {!isLoading && (
-        <>
+        <div className="full-height-container">
           <div>
             <h1>Add New Faculty</h1>
           </div>
@@ -99,7 +99,7 @@ const NewFacultyPage = () => {
               </Formik>
             </Col>
           </Row>
-        </>
+        </div>
       )}
     </>
   )

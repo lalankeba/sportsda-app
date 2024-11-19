@@ -39,7 +39,7 @@ const FacultiesPage = () => {
         </Spinner>
       )}
       {!isLoading && (
-        <>
+        <div className="full-height-container">
           <div>
             <h1>Faculties</h1>
           </div>
@@ -80,7 +80,7 @@ const FacultiesPage = () => {
               </Button>
             </Modal.Footer>
           </Modal>
-        </>
+        </div>
       )}
     </>
   )
