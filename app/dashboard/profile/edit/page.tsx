@@ -56,7 +56,7 @@ const EditProfilePage = async () => {
         </div>
       )}
       {!error && (
-        <div>
+        <div className="full-height-container">
           <Row className="mb-2">
             <Col>
               <h1>Edit Your Profile</h1>

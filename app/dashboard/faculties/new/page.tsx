@@ -59,7 +59,7 @@ const NewFacultyPage = () => {
         </Spinner>
       )}
       {!isLoading && (
-        <>
+        <div className="full-height-container">
           <div>
             <h1>Add New Faculty</h1>
           </div>
@@ -85,10 +85,10 @@ const NewFacultyPage = () => {
                     <Button type="submit" variant="primary" disabled={isSubmitting}>
                       {isSubmitting ? (
                         <>
-                          <FontAwesomeIcon icon={faCircleNotch} spin /> {`Updating profile...`}
+                          <FontAwesomeIcon icon={faCircleNotch} spin /> {`Saving faculty...`}
                         </>
                       ) : (
-                        `Update`
+                        `Save`
                       )}
                     </Button>
                     <Link href="/dashboard/faculties" className="btn btn-outline-secondary mx-2" role="button">
@@ -99,7 +99,7 @@ const NewFacultyPage = () => {
               </Formik>
             </Col>
           </Row>
-        </>
+        </div>
       )}
     </>
   )
