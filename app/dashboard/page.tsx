@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 const DashboardPage = () => {
   return (
     <>
-      <div className="full-height-container">
+      <div className="reduced-height-container">
         <h1>Dashboard</h1>
       </div>
     </>

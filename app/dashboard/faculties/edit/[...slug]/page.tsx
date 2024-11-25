@@ -66,7 +66,7 @@ const EditFacultyPage = ({
 
   return (
     <>
-      <div className="full-height-container">
+      <div className="reduced-height-container">
         {isFacultyLoading && (
           <Spinner animation="border" role="status" className="m-4">
             <span className="visually-hidden">Loading...</span>

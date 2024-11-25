@@ -30,7 +30,7 @@ const ProfilePage = async () => {
   return (
     <>
       {user && (
-        <div className="full-height-container">
+        <div className="reduced-height-container">
           <Row>
             <Col xs={4} md={3} className="d-flex justify-content-center">
               <Image src={user.imageUrl} alt="picture" width={100} height={100} />

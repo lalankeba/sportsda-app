@@ -26,7 +26,7 @@ const NotFound = () => {
       <Row>
         <Col>
           <div
-            className="d-flex flex-column justify-content-center align-items-center full-height-container"
+            className="d-flex flex-column justify-content-center align-items-center reduced-height-container"
           >
             <h1>Resource Not Found</h1>
             <h3>404</h3>

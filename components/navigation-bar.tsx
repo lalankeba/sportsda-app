@@ -16,7 +16,7 @@ const NavigationBar: React.FC = () => {
 
   return (
     <>
-      <Navbar collapseOnSelect fixed="top" expand="lg" className="bg-body-tertiary">
+      <Navbar collapseOnSelect fixed="top" expand="lg" className="bg-body-tertiary bg-opacity-75">
         <Container fluid="md">
 
           <SignedIn>

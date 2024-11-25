@@ -1,0 +1,12 @@
+.home-page {
+
+  .hero-container {
+    margin-top: calc(-1 * var(--navigation-bar-height));
+    background-image: url('/images/back2.png');
+    background-size: cover;
+    background-position: center;
+    background-color: antiquewhite;
+    min-height: calc(100svh);
+    padding-top: calc(var(--navigation-bar-height));
+  }
+}
