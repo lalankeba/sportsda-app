@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 const AboutPage = () => {
   return (
     <>
-      <Container fluid="md" className="full-height-container">
+      <Container fluid="md" className="reduced-height-container">
         <Row>
           <Col>
             <h1>About</h1>

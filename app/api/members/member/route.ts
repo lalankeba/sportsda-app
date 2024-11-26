@@ -21,7 +21,7 @@ export const GET = async (request: Request) => {
 }
 
 export const PUT = async (request: Request) => {
-  const { gender, facultyId, v } = await request.json();
+  const { indexNo, gender, facultyId, province, school, v } = await request.json();
 
   const updateUrl = `${process.env.BACKEND_BASE_URL}${MEMBER_SELF_PATH}`;
   const headers = await getNecessaryHeaders(request);
@@ -30,7 +30,7 @@ export const PUT = async (request: Request) => {
     const response = await fetch(updateUrl, {
       method: 'PUT',
       headers: headers,
-      body: JSON.stringify({ gender, facultyId, v }),
+      body: JSON.stringify({ indexNo, gender, facultyId, province, school, v }),
     });
 
     const responseBody = await response.json();

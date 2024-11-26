@@ -7,7 +7,7 @@ const Loading = () => {
       <Row>
         <Col>
           <div 
-            className="d-flex flex-column justify-content-center align-items-center full-height-container"
+            className="d-flex flex-column justify-content-center align-items-center reduced-height-container"
           >
             <h1 className="m-4">Loading...</h1>
             <Spinner animation="border" role="status" className="m-4">

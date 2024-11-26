@@ -15,7 +15,8 @@ const fetchFaculty = async (id: string) => {
     method: 'GET',
   });
   if (!response.ok) {
-    throw new Error('Failed to fetch faculty');
+    const responseBody = await response.json();
+    throw new Error(responseBody.message || 'Failed to fetch faculty');
   }
   return await response.json();
 };

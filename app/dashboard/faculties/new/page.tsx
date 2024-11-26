@@ -59,7 +59,7 @@ const NewFacultyPage = () => {
         </Spinner>
       )}
       {!isLoading && (
-        <div className="full-height-container">
+        <div className="reduced-height-container">
           <div>
             <h1>Add New Faculty</h1>
           </div>

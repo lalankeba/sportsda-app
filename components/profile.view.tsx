@@ -20,6 +20,14 @@ const ProfileView: React.FC = () => {
         <>
           <Row className="mb-2">
             <Col xs={4} md={3}>
+              <label>Index No:</label>
+            </Col>
+            <Col>
+              { member?.indexNo }
+            </Col>
+          </Row>
+          <Row className="mb-2">
+            <Col xs={4} md={3}>
               <label>Gender:</label>
             </Col>
             <Col>
@@ -32,6 +40,22 @@ const ProfileView: React.FC = () => {
             </Col>
             <Col>
               { member?.faculty.name }
+            </Col>
+          </Row>
+          <Row className="mb-2">
+            <Col xs={4} md={3}>
+              <label>Province:</label>
+            </Col>
+            <Col>
+              { member?.province }
+            </Col>
+          </Row>
+          <Row className="mb-2">
+            <Col xs={4} md={3}>
+              <label>School:</label>
+            </Col>
+            <Col>
+              { member?.school }
             </Col>
           </Row>
         </>

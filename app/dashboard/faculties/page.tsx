@@ -33,7 +33,7 @@ const FacultiesPage = () => {
 
   return (
     <>
-      <div className="full-height-container">
+      <div className="reduced-height-container">
         {isFacultiesLoading && (
           <Spinner animation="border" role="status" className="m-4">
             <span className="visually-hidden">Loading...</span>

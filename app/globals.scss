@@ -30,8 +30,12 @@ html, body {
     text-align: justify;
   }
 
-  .full-height-container {
+  .reduced-height-container {
     min-height: calc(100svh - var(--navigation-bar-height) - var(--footer-bar-height));
+  }
+
+  .full-height-container {
+    min-height: calc(100svh - var(--navigation-bar-height));
   }
 
 }
