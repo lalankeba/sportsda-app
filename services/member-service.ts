@@ -13,7 +13,13 @@ const fetchMember = async () => {
 const updateMember = async (values: ProfileEditFormValues) => {
   const response = await fetch(`/api/members/member`, {
     method: 'PUT',
-    body: JSON.stringify(values),
+    body: JSON.stringify({
+      indexNo: values.indexNo, 
+      gender: values.gender, 
+      facultyId: values.facultyId,
+      province: values.province,
+      school: values.school,
+      v: values.v}),
   });
   if (!response.ok) {
     const responseBody = await response.json();
